@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f961987e-132c-4795-833e-bd339e75a2ca" name="Changes" comment="Create logins and send email with credentials">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Create login+send email.py" beforeDir="false" afterPath="$PROJECT_DIR$/Create login+send email.py" afterDir="false" />
-    </list>
+    <list default="true" id="f961987e-132c-4795-833e-bd339e75a2ca" name="Changes" comment="updated since our meeting on 2/14" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,7 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1739739771799</updated>
       <workItem from="1739739773665" duration="246000" />
-      <workItem from="1739805797082" duration="2909000" />
+      <workItem from="1739805797082" duration="2991000" />
     </task>
     <task id="LOCAL-00001" summary="Create logins and send email with credentials">
       <option name="closed" value="true" />
@@ -84,7 +81,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739739839568</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="updated since our meeting on 2/14">
+      <option name="closed" value="true" />
+      <created>1739808789022</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1739808789023</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -103,7 +108,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create logins and send email with credentials" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create logins and send email with credentials" />
+    <MESSAGE value="updated since our meeting on 2/14" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated since our meeting on 2/14" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/pythonProject$Create_login_send_email.coverage" NAME="Create login+send email Coverage Results" MODIFIED="1739808209567" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
