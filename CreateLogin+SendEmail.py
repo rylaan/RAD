@@ -2,10 +2,10 @@
 # Once the user account is created an email to the student/new user will be sent to their student email (aurora.edu).
 # The content of the email will include the user credentials.
 
-import os  # provides functions for interacting with the operating system.
-import subprocess  # allows the running of external commands and interacting with them.
-import sys  # provides access to system-specific parameters and functions.
-import smtplib  # makes the simple mail transfer protocol (SMTP) library available.
+import os  #provides functions for interacting with the operating system.
+import subprocess  #allows the running of external commands and interacting with them.
+import sys  #provides access to system-specific parameters and functions.
+import smtplib  #makes the simple mail transfer protocol (SMTP) library available.
 from email.mime.multipart import MIMEMultipart  # used to create email messages that can contain multiple parts.
 from email.mime.text import MIMEText  # used to create text-based email messages.
 
@@ -94,7 +94,6 @@ def create_or_update_user(username, sender_email, sender_password, default_passw
 
     user_exists = subprocess.run(f"getent passwd {username}", shell=True, stdout=subprocess.DEVNULL).returncode == 0
 
-    commands = []
     if user_exists:
         print(f"Updating existing user: {username}")
         commands = [
