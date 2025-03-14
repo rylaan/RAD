@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f961987e-132c-4795-833e-bd339e75a2ca" name="Changes" comment="3/13" />
+    <list default="true" id="f961987e-132c-4795-833e-bd339e75a2ca" name="Changes" comment="3/13">
+      <change afterPath="$PROJECT_DIR$/AppManagementV.2.7.5.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Login+EmailV.2.7.5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,6 +79,8 @@
       <workItem from="1740585166236" duration="675000" />
       <workItem from="1741793074585" duration="31000" />
       <workItem from="1741880329926" duration="3231000" />
+      <workItem from="1741883571564" duration="120000" />
+      <workItem from="1741965189857" duration="647000" />
     </task>
     <task id="LOCAL-00001" summary="Create logins and send email with credentials">
       <option name="closed" value="true" />
@@ -108,7 +114,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741883564972</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="3/13">
+      <option name="closed" value="true" />
+      <created>1741883597206</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1741883597206</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
