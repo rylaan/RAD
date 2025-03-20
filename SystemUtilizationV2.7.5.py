@@ -12,7 +12,7 @@ LOG_FILE = "/var/log/secure"
 def get_filenames():
     """Get the report filename from command-line arguments."""
     if len(sys.argv) < 2:
-        print("Usage: python script.py <report_file.txt>")
+        print "Usage: python script.py <report_file.txt>"
         sys.exit(1)
     return sys.argv[1]
 
@@ -45,7 +45,7 @@ def test_response_time(server_ip):
         if response_times:
             return sum(response_times) / len(response_times)
     except Exception as e:
-        print(f"Unexpected error during ping: {e}")
+        print "Unexpected error during ping:", e
 
     return None  # Server unreachable
 
@@ -54,25 +54,27 @@ def write_report(report_file):
     """Write system report to the file."""
     try:
         with open(report_file, "w") as f:
-            f.write(f"System Report - {datetime.now()}\n")
-            f.write(f"CPU Utilization: {psutil.cpu_percent(interval=1)}%\n")
+            f.write("System Report - {}\n".format(datetime.now()))
+            f.write("CPU Utilization: {}%\n".format(psutil.cpu_percent(interval=1)))
 
             # getloadavg() is only available on Unix-based systems
             if hasattr(psutil, "getloadavg"):
-                f.write(f"Max User Load: {psutil.getloadavg()[0]}\n")
+                f.write("Max User Load: {}\n".format(psutil.getloadavg()[0]))
 
-            f.write(f"Disk Space Consumed: {psutil.disk_usage('/').percent}%\n")
+            f.write("Disk Space Consumed: {}%\n".format(psutil.disk_usage('/').percent))
 
             # Test response time
             server_ip = get_ip_address()
             average_time = test_response_time(server_ip)
-            f.write(
-                f"Average Response Time: {average_time:.2f} seconds\n" if average_time else "Server is unreachable\n")
+            if average_time is not None:
+                f.write("Average Response Time: {:.2f} seconds\n".format(average_time))
+            else:
+                f.write("Server is unreachable\n")
     except IOError:
-        print(f"Error: Cannot write to file '{report_file}'.")
+        print "Error: Cannot write to file '{}'.".format(report_file)
         sys.exit(1)
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        print "Unexpected error:", e
         sys.exit(1)
 
 
@@ -85,13 +87,13 @@ def log_login_attempts(report_file):
                 if "root" in line:
                     f.write(line)
     except IOError:
-        print(f"Error: Cannot read log file '{LOG_FILE}'.")
+        print "Error: Cannot read log file '{}'.".format(LOG_FILE)
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        print "Unexpected error:", e
 
 
 if __name__ == "__main__":
     report_file = get_filenames()
     write_report(report_file)
     log_login_attempts(report_file)
-    print(f"Report written to {report_file}")
+    print "Report written to {}".format(report_file)

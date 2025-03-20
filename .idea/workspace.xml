@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f961987e-132c-4795-833e-bd339e75a2ca" name="Changes" comment="3/14">
-      <change afterPath="$PROJECT_DIR$/SystemUtilizationV2.7.5.py" afterDir="false" />
+    <list default="true" id="f961987e-132c-4795-833e-bd339e75a2ca" name="Changes" comment="3/17">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppManagementV.2.7.5.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppManagementV.2.7.5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Login+EmailV.2.7.5.py" beforeDir="false" afterPath="$PROJECT_DIR$/LoginCreationV.2.7.5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystemUtilizationV2.7.5.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystemUtilizationV2.7.5.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +85,9 @@
       <workItem from="1741974425600" duration="55000" />
       <workItem from="1741974493589" duration="34000" />
       <workItem from="1742221725442" duration="146000" />
+      <workItem from="1742221989095" duration="2881000" />
+      <workItem from="1742235688598" duration="644000" />
+      <workItem from="1742508158067" duration="1614000" />
     </task>
     <task id="LOCAL-00001" summary="Create logins and send email with credentials">
       <option name="closed" value="true" />
@@ -140,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741974435116</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="3/17">
+      <option name="closed" value="true" />
+      <created>1742222188490</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1742222188490</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +176,8 @@
     <MESSAGE value="most recent 2/26" />
     <MESSAGE value="3/13" />
     <MESSAGE value="3/14" />
-    <option name="LAST_COMMIT_MESSAGE" value="3/14" />
+    <MESSAGE value="3/17" />
+    <option name="LAST_COMMIT_MESSAGE" value="3/17" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/pythonProject$Create_login_send_email.coverage" NAME="Create login+send email Coverage Results" MODIFIED="1739808209567" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
