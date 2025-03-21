@@ -1,0 +1,39 @@
+import os
+import pwd
+import datetime
+
+# List of logins to exclude from deletion
+EXCLUDE_LOGINS = ['admin', 'special_user', 'dlash']
+
+def get_old_logins():
+    current_time = datetime.datetime.now()
+    threshold_date = current_time - datetime.timedelta(days=5*365)  # 5 years ago
+    old_logins = []
+
+    for user in pwd.getpwall():
+        if user.pw_uid >= 1000 and 'home' in user.pw_dir:  # Skip system users
+            if user.pw_name in EXCLUDE_LOGINS:
+                continue
+            try:
+                last_login = datetime.datetime.fromtimestamp(os.path.getctime(user.pw_dir))
+                if last_login < threshold_date:
+                    old_logins.append(user.pw_name)
+            except Exception as e:
+                print(f"Error processing user {user.pw_name}: {e}")
+
+    return old_logins
+
+def generate_report():
+    old_logins = get_old_logins()
+    report_file = 'deletion_report.txt'
+
+    with open(report_file, 'w') as f:
+        f.write("Accounts Recommended for Deletion:\n")
+        f.write("=================================\n")
+        for username in old_logins:
+            f.write(f"{username}\n")
+
+    print(f"Report written to {report_file}")
+
+if __name__ == "__main__":
+    generate_report()
