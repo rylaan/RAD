@@ -43,38 +43,54 @@ def run_command(cmd):
         return False  # Command execution failed
     return True  # Command executed successfully
 
-# Function to create or update a user account
+# Function to create a new user and set up their home and public_html directories
+# If the user already exists, it logs the failure. If any command fails, it logs the specific reason.
 def create_or_update_user(username, default_password, log_file):
-    home_dir = "/home/{}".format(username)  # Define the user's home directory path
-    timestamp = datetime.now().strftime("%m-%d-%y %I:%M%p").lower()  # Get the current timestamp
+    import subprocess
+    home_dir = "/home/{}".format(username)  # Define the path for the user's home directory
+    timestamp = datetime.now().strftime("%m-%d-%y %I:%M%p").lower()  # Get current timestamp in a readable format
 
-    if user_exists(username):  # Check if user already exists
-        log_entry = "Failed {}\n".format(username)  # Log failure if user already exists
-    else:
-        # Commands to create a new user and set up their environment
-        commands = [
-            "useradd -m -s /bin/bash {}".format(username),  # Create a new user with a home directory
-            "echo '{}:{}' | chpasswd".format(username, default_password),  # Set user password
-            "mkdir -p {}/public_html".format(home_dir),  # Create the public_html directory
-            "chmod 755 {}/public_html".format(home_dir),  # Set permissions for public_html
-            "chmod 755 {}".format(home_dir),  # Set permissions for home directory
-            "chown {}:{} {}".format(username, username, home_dir),  # Set ownership of home directory
-            "chown {}:{} {}/public_html".format(username, username, home_dir),  # Set ownership of public_html
-            "cp /home/dlash/public_html/helloworld1.html {}/public_html/helloworld.html".format(home_dir),  # Copy default HTML file
-            "chmod 644 {}/public_html/helloworld.html".format(home_dir),  # Set permissions for the HTML file
-            "chown {}:{} {}/public_html/helloworld.html".format(username, username, home_dir)  # Set ownership of the HTML file
-        ]
+    # Helper function to write failure logs with the reason
+    def log(reason):
+        with open(log_file, "a") as logf:
+            logf.write("Failed {} on {}: {}\n".format(username, timestamp, reason))
 
-        # Execute all commands and check if they succeed
-        success = all(run_command(cmd) for cmd in commands)
-        if success:
-            log_entry = "Created {} on {} pass:{} user:{}\n".format(username, timestamp, default_password, username)  # Log success
-        else:
-            log_entry = "Failed {}\n".format(username)  # Log failure
+    # Check if the user already exists in the system
+    if user_exists(username):
+        log("User already exists.")  # Log the reason and return early
+        return
 
-    # Append the log entry to the log file
+    # List of shell commands to execute in order to fully set up the user environment
+    # Each entry is a tuple: (command_string, description_of_what_it_does_if_it_fails)
+    commands = [
+        ("useradd -m -s /bin/bash {}".format(username), "User creation failed"),
+        ("echo '{}:{}' | chpasswd".format(username, default_password), "Setting password failed"),
+        ("mkdir -p {}/public_html".format(home_dir), "Creating public_html failed"),
+        ("chmod 755 {}/public_html".format(home_dir), "Setting permissions for public_html failed"),
+        ("chmod 755 {}".format(home_dir), "Setting permissions for home directory failed"),
+        ("chown {}:{} {}".format(username, username, home_dir), "Setting ownership of home directory failed"),
+        ("chown {}:{} {}/public_html".format(username, username, home_dir), "Setting ownership of public_html failed"),
+        ("cp /home/dlash/public_html/helloworld1.html {}/public_html/helloworld.html".format(home_dir), "Copying HTML file failed"),
+        ("chmod 644 {}/public_html/helloworld.html".format(home_dir), "Setting permissions on HTML file failed"),
+        ("chown {}:{} {}/public_html/helloworld.html".format(username, username, home_dir), "Setting ownership of HTML file failed")
+    ]
+
+    # Loop through each command and execute it
+    for cmd, err_msg in commands:
+        # Run the shell command and capture stdout and stderr
+        proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        out, err = proc.communicate()
+
+        # Check the return code to determine if the command was successful
+        if proc.returncode != 0:
+            # If not, log the error message with the stderr output and stop further processing
+            log("{}: {}".format(err_msg, err.strip()))
+            return
+
+    # If all commands succeeded, log the successful creation
     with open(log_file, "a") as log:
-        log.write(log_entry)
+        log.write("Created {} on {} pass:{} user:{}\n".format(username, timestamp, default_password, username))
+
 
 # Main function to control the script execution
 def main():
