@@ -45,7 +45,6 @@ def log_status(log_file, message):
     with open(log_file, "a") as log:  # Open the log file in append mode
         log.write("{} {}\n".format(message, timestamp))  # Write log entry with timestamp
 
-
 def main():
     """Main function to check application status and restart if necessary."""
     app_name = get_application_name()  # Retrieve application name from user input
