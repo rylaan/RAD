@@ -1,0 +1,52 @@
+import os
+import subprocess
+
+# CONFIG
+USER_LIST_FILE = "student_emails.txt"
+BASE_DIR = "/var/www/student_projects"
+DEFAULT_PASSWORD = "password"
+GROUP = "www-data"
+
+def create_user(username):
+    username = username.strip()
+
+    # Skip empty lines or malformed usernames
+    if not username or len(username) < 4:
+        print(f"Skipping invalid username: {username}")
+        return
+
+    try:
+        # Check if user exists
+        result = subprocess.run(['id', username], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if result.returncode == 0:
+            print(f"User {username} already exists. Skipping.")
+            return
+
+        # Create the user
+        subprocess.run(['sudo', 'useradd', '-m', '-d', f'{BASE_DIR}/{username}', '-s', '/bin/bash', username])
+        
+        # Set password
+        subprocess.run(['sudo', 'chpasswd'], input=f"{username}:{DEFAULT_PASSWORD}".encode())
+
+        # Create directory if it doesn't exist
+        subprocess.run(['sudo', 'mkdir', '-p', f'{BASE_DIR}/{username}'])
+        subprocess.run(['sudo', 'chown', f'{username}:{GROUP}', f'{BASE_DIR}/{username}'])
+        subprocess.run(['sudo', 'chmod', '755', f'{BASE_DIR}/{username}'])
+
+        print(f"Created user {username} and folder at {BASE_DIR}/{username}")
+    except Exception as e:
+        print(f"Error creating user {username}: {e}")
+
+def main():
+    if not os.path.exists(USER_LIST_FILE):
+        print(f"Error: '{USER_LIST_FILE}' not found.")
+        return
+
+    with open(USER_LIST_FILE, 'r') as file:
+        usernames = file.read().split(',')
+
+    for username in usernames:
+        create_user(username.strip())
+
+if __name__ == "__main__":
+    main()
