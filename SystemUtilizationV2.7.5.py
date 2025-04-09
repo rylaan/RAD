@@ -1,3 +1,6 @@
+#Should be ran in cron, the following line will run it everyday at 12pm: 
+#crontab -e => 0 12 *** SystemUtilizationV2.7.5.py
+
 import sys
 import psutil
 import time
