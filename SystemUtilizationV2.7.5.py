@@ -1,3 +1,6 @@
+#Should be ran in cron, the following line will run it everyday at 12pm: 
+#crontab -e => 0 12 *** SystemUtilizationV2.7.5.py
+
 import sys
 import psutil
 import time
@@ -8,14 +11,12 @@ from datetime import datetime
 # Log file location
 LOG_FILE = "/var/log/secure"
 
-
 def get_filenames():
     """Get the report filename from command-line arguments."""
     if len(sys.argv) < 2:
-        print "Usage: python script.py <report_file.txt>"
+        print("Usage: python script.py <report_file.txt>")
         sys.exit(1)
     return sys.argv[1]
-
 
 def get_ip_address():
     """Get the system's IP address."""
@@ -24,7 +25,6 @@ def get_ip_address():
         return socket.gethostbyname(hostname)
     except socket.gaierror:
         return "Unknown"
-
 
 def test_response_time(server_ip):
     """Ping the server and measure response time."""
@@ -45,10 +45,9 @@ def test_response_time(server_ip):
         if response_times:
             return sum(response_times) / len(response_times)
     except Exception as e:
-        print "Unexpected error during ping:", e
+        print("Unexpected error during ping:", e)
 
     return None  # Server unreachable
-
 
 def write_report(report_file):
     """Write system report to the file."""
@@ -71,12 +70,11 @@ def write_report(report_file):
             else:
                 f.write("Server is unreachable\n")
     except IOError:
-        print "Error: Cannot write to file '{}'.".format(report_file)
+        print("Error: Cannot write to file '{}'.".format(report_file))
         sys.exit(1)
     except Exception as e:
-        print "Unexpected error:", e
+        print("Unexpected error:", e)
         sys.exit(1)
-
 
 def log_login_attempts(report_file):
     """Log root login attempts from /var/log/secure."""
@@ -87,13 +85,12 @@ def log_login_attempts(report_file):
                 if "root" in line:
                     f.write(line)
     except IOError:
-        print "Error: Cannot read log file '{}'.".format(LOG_FILE)
+        print("Error: Cannot read log file '{}'.".format(LOG_FILE))
     except Exception as e:
-        print "Unexpected error:", e
-
+        print("Unexpected error:", e)
 
 if __name__ == "__main__":
     report_file = get_filenames()
     write_report(report_file)
     log_login_attempts(report_file)
-    print "Report written to {}".format(report_file)
+    print("Report written to {}".format(report_file))
