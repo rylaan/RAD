@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f961987e-132c-4795-833e-bd339e75a2ca" name="Changes" comment="3/20">
+    <list default="true" id="f961987e-132c-4795-833e-bd339e75a2ca" name="Changes" comment="4/6&#10;if login creation fails it will state the reason within the log file.">
+      <change afterPath="$PROJECT_DIR$/updated/AppManagement.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/updated/DeleteUsers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/updated/GetOldUsers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/updated/LoginCreation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/updated/SystemUtilization.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppManagementV.2.7.5.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppManagementV.2.7.5.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LoginCreationV.2.7.5.py" beforeDir="false" afterPath="$PROJECT_DIR$/LoginCreationV.2.7.5.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +26,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -87,7 +91,11 @@
       <workItem from="1742221989095" duration="2881000" />
       <workItem from="1742235688598" duration="644000" />
       <workItem from="1742508158067" duration="1709000" />
-      <workItem from="1743986248776" duration="1395000" />
+      <workItem from="1743986248776" duration="1655000" />
+      <workItem from="1743993074356" duration="48000" />
+      <workItem from="1744210221787" duration="223000" />
+      <workItem from="1744210766302" duration="8000" />
+      <workItem from="1744383435150" duration="742000" />
     </task>
     <task id="LOCAL-00001" summary="Create logins and send email with credentials">
       <option name="closed" value="true" />
@@ -161,7 +169,23 @@
       <option name="project" value="LOCAL" />
       <updated>1742509857738</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="4/6&#10;if login creation fails it will state the reason within the log file.">
+      <option name="closed" value="true" />
+      <created>1743992874748</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1743992874748</updated>
+    </task>
+    <task id="LOCAL-00011" summary="4/6&#10;if login creation fails it will state the reason within the log file.">
+      <option name="closed" value="true" />
+      <created>1743992913352</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1743992913352</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,7 +210,8 @@
     <MESSAGE value="3/14" />
     <MESSAGE value="3/17" />
     <MESSAGE value="3/20" />
-    <option name="LAST_COMMIT_MESSAGE" value="3/20" />
+    <MESSAGE value="4/6&#10;if login creation fails it will state the reason within the log file." />
+    <option name="LAST_COMMIT_MESSAGE" value="4/6&#10;if login creation fails it will state the reason within the log file." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/pythonProject$Create_login_send_email.coverage" NAME="Create login+send email Coverage Results" MODIFIED="1739808209567" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
