@@ -52,18 +52,14 @@ def write_report(report_file):
         with open(report_file, "w") as f:
             f.write("System Report - {}\n".format(datetime.now()))
             
-            cpu_utilization = psutil.cpu_percent(interval=1)
-            print("CPU Utilization:", cpu_utilization)  # Debugging print
+            cpu_utilization = psutil.cpu_percent(interval=10)
             f.write("CPU Utilization: {}%\n".format(cpu_utilization))
 
-            # getloadavg() is only available on Unix-based systems
             if hasattr(psutil, "getloadavg"):
-                max_user_load = psutil.getloadavg()[0]
-                print("Max User Load:", max_user_load)  # Debugging print
+                max_user_load = psutil.getloadavg()[1]
                 f.write("Max User Load: {}\n".format(max_user_load))
 
             disk_usage = psutil.disk_usage('/').percent
-            print("Disk Space Consumed:", disk_usage)  # Debugging print
             f.write("Disk Space Consumed: {}%\n".format(disk_usage))
 
             # Test response time
