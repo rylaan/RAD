@@ -9,7 +9,7 @@ import socket
 from datetime import datetime
 
 # Log file location
-LOG_FILE = "/var/log/secure"
+WTMP_FILE = "/var/log/wtmp"
 
 def get_filenames():
     """Get the report filename from command-line arguments."""
@@ -29,18 +29,15 @@ def get_ip_address():
 def test_response_time(server_ip):
     """Ping the server and measure response time."""
     response_times = []
-    ping_cmd = ["ping", "-c", "3", server_ip] if sys.platform != "win32" else ["ping", "-n", "3", server_ip]
+    ping_cmd = ["ping", "-c", "3", server_ip]
 
     try:
-        process = subprocess.Popen(ping_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        process.communicate()
-        if process.returncode == 0:
-            for _ in range(3):  # Measure 3 response times
-                start_time = time.time()
-                process = subprocess.Popen(ping_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                process.communicate()
-                response_times.append(time.time() - start_time)
-                time.sleep(1)
+        for _ in range(3):  # Measure 3 response times
+            start_time = time.time()
+            process = subprocess.Popen(ping_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            process.communicate()
+            response_times.append(time.time() - start_time)
+            time.sleep(1)
 
         if response_times:
             return sum(response_times) / len(response_times)
@@ -77,15 +74,17 @@ def write_report(report_file):
         sys.exit(1)
 
 def log_login_attempts(report_file):
-    """Log root login attempts from /var/log/secure."""
+    """Log root login attempts from /var/log/wtmp."""
     try:
-        with open(LOG_FILE, "r") as file, open(report_file, "a") as f:
-            f.write("\nRoot Login Attempts:\n")
-            for line in file:
-                if "root" in line:
-                    f.write(line)
-    except IOError:
-        print("Error: Cannot read log file '{}'.".format(LOG_FILE))
+        process = subprocess.Popen(["last", "-F", "root"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, error = process.communicate()
+
+        if process.returncode == 0:
+            with open(report_file, "a") as f:
+                f.write("\nRoot Login Attempts:\n")
+                f.write(output.decode())
+        else:
+            print("Error reading wtmp file:", error.decode())
     except Exception as e:
         print("Unexpected error:", e)
 
