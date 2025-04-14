@@ -51,13 +51,20 @@ def write_report(report_file):
     try:
         with open(report_file, "w") as f:
             f.write("System Report - {}\n".format(datetime.now()))
-            f.write("CPU Utilization: {}%\n".format(psutil.cpu_percent(interval=10)))
+            
+            cpu_utilization = psutil.cpu_percent(interval=1)
+            print("CPU Utilization:", cpu_utilization)  # Debugging print
+            f.write("CPU Utilization: {}%\n".format(cpu_utilization))
 
             # getloadavg() is only available on Unix-based systems
             if hasattr(psutil, "getloadavg"):
-                f.write("Max User Load: {}\n".format(psutil.getloadavg()[1]))
+                max_user_load = psutil.getloadavg()[0]
+                print("Max User Load:", max_user_load)  # Debugging print
+                f.write("Max User Load: {}\n".format(max_user_load))
 
-            f.write("Disk Space Consumed: {}%\n".format(psutil.disk_usage('/').percent))
+            disk_usage = psutil.disk_usage('/').percent
+            print("Disk Space Consumed:", disk_usage)  # Debugging print
+            f.write("Disk Space Consumed: {}%\n".format(disk_usage))
 
             # Test response time
             server_ip = get_ip_address()
@@ -76,7 +83,7 @@ def write_report(report_file):
 def log_login_attempts(report_file):
     """Log root login attempts from /var/log/wtmp."""
     try:
-        process = subprocess.Popen(["last", "-F", "root"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = subprocess.Popen(["last", "root"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output, error = process.communicate()
 
         if process.returncode == 0:
