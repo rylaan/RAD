@@ -51,11 +51,11 @@ def write_report(report_file):
     try:
         with open(report_file, "w") as f:
             f.write("System Report - {}\n".format(datetime.now()))
-            f.write("CPU Utilization: {}%\n".format(psutil.cpu_percent(interval=1)))
+            f.write("CPU Utilization: {}%\n".format(psutil.cpu_percent(interval=10)))
 
             # getloadavg() is only available on Unix-based systems
             if hasattr(psutil, "getloadavg"):
-                f.write("Max User Load: {}\n".format(psutil.getloadavg()[0]))
+                f.write("Max User Load: {}\n".format(psutil.getloadavg()[1]))
 
             f.write("Disk Space Consumed: {}%\n".format(psutil.disk_usage('/').percent))
 
