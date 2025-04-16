@@ -52,12 +52,11 @@ def write_report(report_file):
         with open(report_file, "w") as f:
             f.write("System Report - {}\n".format(datetime.now()))
             
-            cpu_utilization = psutil.cpu_percent(interval=10)
+            cpu_utilization = psutil.cpu_percent(interval=1)
             f.write("CPU Utilization: {}%\n".format(cpu_utilization))
 
-            if hasattr(psutil, "getloadavg"):
-                max_user_load = psutil.getloadavg()[1]
-                f.write("Max User Load: {}\n".format(max_user_load))
+            load_avg = psutil.getloadavg()[1]
+            f.write("User Load Average: {}\n".format(load_avg))
 
             disk_usage = psutil.disk_usage('/').percent
             f.write("Disk Space Consumed: {}%\n".format(disk_usage))
