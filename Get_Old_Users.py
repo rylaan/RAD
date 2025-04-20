@@ -23,7 +23,7 @@ def get_old_logins():
             if user.pw_name in EXCLUDE_LOGINS:
                 continue
             try:
-                last_login = datetime.datetime.fromtimestamp(os.path.getctime(user.pw_dir))
+                creation_date = datetime.datetime.fromtimestamp(os.path.getctime(user.pw_dir))
                 if last_login < threshold_date:
                     old_logins.append(user.pw_name)
             except Exception as e:
