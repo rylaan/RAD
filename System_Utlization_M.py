@@ -58,7 +58,7 @@ def write_report(report_file):
             # Increase the interval to 15 seconds for CPU utilization measurement
             cpu_utilization = psutil.cpu_percent(interval=15)
             print("CPU Utilization: {}%".format(cpu_utilization))  # Debugging print statement
-            f.write("CPU Utilization: {}%\n".format(cpu_utilization))
+            f.write("\nCPU Utilization: {}%\n".format(cpu_utilization))
             f.write("^average CPU usage percentage over a 15-second interval\n")
 
             try:
