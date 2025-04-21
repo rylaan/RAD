@@ -55,16 +55,16 @@ def write_report(report_file):
             # Generate CPU load for 60 seconds
             generate_cpu_load(duration=60)
 
-            # Increase the interval to 5 seconds for CPU utilization measurement
+            # Increase the interval to 15 seconds for CPU utilization measurement
             cpu_utilization = psutil.cpu_percent(interval=15)
             print("CPU Utilization: {}%".format(cpu_utilization))  # Debugging print statement
-            f.write("CPU Utilization: {}%".format(cpu_utilization))
+            f.write("CPU Utilization: {}%\n".format(cpu_utilization))
             f.write("^average CPU usage percentage over a 15-second interval\n")
 
             try:
                 load_avg = psutil.getloadavg()[1]
                 print("User Load Average: {}".format(load_avg))  # Debugging print statement
-                f.write("User Load Average: {}".format(load_avg))
+                f.write("\nUser Load Average: {}\n".format(load_avg))
                 f.write("^average number of processes waiting to be executed over the last 5 minutes\n")
             except AttributeError:
                 print("Load average not supported on this system.")
@@ -72,15 +72,15 @@ def write_report(report_file):
 
             disk_usage = psutil.disk_usage('/').percent
             print("Disk Space Consumed: {}%".format(disk_usage))  # Debugging print statement
-            f.write("Disk Space Consumed: {}%".format(disk_usage))
+            f.write("\nDisk Space Consumed: {}%\n".format(disk_usage))
             f.write("^percentage of disk space currently in use\n")
 
             # Test response time
             server_ip = get_ip_address()
             average_time = test_response_time(server_ip)
             if average_time is not None:
-                f.write("Server Response Time: {:.2f} seconds".format(average_time))
-                f.write("^average time taken for the server to respond to a ping request")
+                f.write("\nServer Response Time: {:.2f} seconds\n".format(average_time))
+                f.write("^average time taken for the server to respond to a ping request\n")
             else:
                 f.write("Server is unreachable\n")
     except IOError:
@@ -93,7 +93,7 @@ def write_report(report_file):
 def log_login_attempts(report_file):
     """Log root login attempts from /var/log/wtmp."""
     try:
-        process = subprocess.Popen(["last", "adminuser"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = subprocess.Popen(["last", "adminuser", "-n", "5"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output, error = process.communicate()
 
         if process.returncode == 0:
