@@ -4,7 +4,7 @@ import datetime
 import sys
 
 # List of logins to exclude from deletion
-EXCLUDE_LOGINS = ['admin', 'special_user']
+EXCLUDE_LOGINS = ['admin', 'special_user', 'varnish', 'mysql']
 
 def get_filenames():
     """Get the report filename from command-line arguments."""
