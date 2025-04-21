@@ -8,9 +8,6 @@ import subprocess
 import socket
 from datetime import datetime
 
-# Log file location
-WTMP_FILE = "/var/log/wtmp"
-
 def get_filenames():
     """Get the report filename from command-line arguments."""
     if len(sys.argv) < 2:
@@ -52,7 +49,7 @@ def write_report(report_file):
         with open(report_file, "w") as f:
             f.write("System Report - {}\n".format(datetime.now()))
             
-            cpu_utilization = psutil.cpu_percent(interval=1)
+            cpu_utilization = psutil.cpu_percent(interval=5)
             f.write("CPU Utilization: {}%\n".format(cpu_utilization))
 
             load_avg = psutil.getloadavg()[1]
@@ -78,7 +75,7 @@ def write_report(report_file):
 def log_login_attempts(report_file):
     """Log root login attempts from /var/log/wtmp."""
     try:
-        process = subprocess.Popen(["last", "root"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = subprocess.Popen(["last", "adminuser"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output, error = process.communicate()
 
         if process.returncode == 0:
