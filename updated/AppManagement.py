@@ -1,4 +1,5 @@
 import sys
+import os
 import psutil
 import subprocess
 from datetime import datetime
@@ -32,7 +33,9 @@ def is_application_running(app_name):
 def restart_application(app_name):
     """Attempt to restart the application using subprocess."""
     try:
-        subprocess.Popen(app_name, shell=True)
+        env = os.environ.copy()
+        env["DISPLAY"] = ":0"  # or the correct display if running GUI
+        subprocess.Popen(app_name, shell=True, env=env)
         return True
     except Exception:
         return False

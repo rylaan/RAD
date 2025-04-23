@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f961987e-132c-4795-833e-bd339e75a2ca" name="Changes" comment="4/6&#10;if login creation fails it will state the reason within the log file.">
-      <change afterPath="$PROJECT_DIR$/updated/AppManagement.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/updated/DeleteUsers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/updated/GetOldUsers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/updated/LoginCreation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/updated/SystemUtilization.py" afterDir="false" />
+    <list default="true" id="f961987e-132c-4795-833e-bd339e75a2ca" name="Changes" comment="4/11">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delete_Users" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +22,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -95,7 +90,12 @@
       <workItem from="1743993074356" duration="48000" />
       <workItem from="1744210221787" duration="223000" />
       <workItem from="1744210766302" duration="8000" />
-      <workItem from="1744383435150" duration="742000" />
+      <workItem from="1744383435150" duration="795000" />
+      <workItem from="1744816619637" duration="241000" />
+      <workItem from="1745095240632" duration="1959000" />
+      <workItem from="1745123626831" duration="341000" />
+      <workItem from="1745124066790" duration="170000" />
+      <workItem from="1745124242340" duration="801000" />
     </task>
     <task id="LOCAL-00001" summary="Create logins and send email with credentials">
       <option name="closed" value="true" />
@@ -185,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743992913352</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="4/11">
+      <option name="closed" value="true" />
+      <created>1744384189903</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1744384189903</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,7 +219,8 @@
     <MESSAGE value="3/17" />
     <MESSAGE value="3/20" />
     <MESSAGE value="4/6&#10;if login creation fails it will state the reason within the log file." />
-    <option name="LAST_COMMIT_MESSAGE" value="4/6&#10;if login creation fails it will state the reason within the log file." />
+    <MESSAGE value="4/11" />
+    <option name="LAST_COMMIT_MESSAGE" value="4/11" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/pythonProject$Create_login_send_email.coverage" NAME="Create login+send email Coverage Results" MODIFIED="1739808209567" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
