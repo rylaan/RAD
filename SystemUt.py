@@ -8,9 +8,6 @@ import subprocess
 import socket
 from datetime import datetime
 
-# Log file location
-LOG_FILE = "/var/log/secure"
-
 def get_filenames():
     """Get the report filename from command-line arguments."""
     if len(sys.argv) < 2:
@@ -29,18 +26,15 @@ def get_ip_address():
 def test_response_time(server_ip):
     """Ping the server and measure response time."""
     response_times = []
-    ping_cmd = ["ping", "-c", "3", server_ip] if sys.platform != "win32" else ["ping", "-n", "3", server_ip]
+    ping_cmd = ["ping", "-c", "3", server_ip]
 
     try:
-        process = subprocess.Popen(ping_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        process.communicate()
-        if process.returncode == 0:
-            for _ in range(3):  # Measure 3 response times
-                start_time = time.time()
-                process = subprocess.Popen(ping_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                process.communicate()
-                response_times.append(time.time() - start_time)
-                time.sleep(1)
+        for _ in range(3):  # Measure 3 response times
+            start_time = time.time()
+            process = subprocess.Popen(ping_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            process.communicate()
+            response_times.append(time.time() - start_time)
+            time.sleep(1)
 
         if response_times:
             return sum(response_times) / len(response_times)
@@ -54,13 +48,15 @@ def write_report(report_file):
     try:
         with open(report_file, "w") as f:
             f.write("System Report - {}\n".format(datetime.now()))
-            f.write("CPU Utilization: {}%\n".format(psutil.cpu_percent(interval=1)))
+            
+            cpu_utilization = psutil.cpu_percent(interval=5)
+            f.write("CPU Utilization: {}%\n".format(cpu_utilization))
 
-            # getloadavg() is only available on Unix-based systems
-            if hasattr(psutil, "getloadavg"):
-                f.write("Max User Load: {}\n".format(psutil.getloadavg()[0]))
+            load_avg = psutil.getloadavg()[1]
+            f.write("User Load Average: {}\n".format(load_avg))
 
-            f.write("Disk Space Consumed: {}%\n".format(psutil.disk_usage('/').percent))
+            disk_usage = psutil.disk_usage('/').percent
+            f.write("Disk Space Consumed: {}%\n".format(disk_usage))
 
             # Test response time
             server_ip = get_ip_address()
@@ -77,15 +73,17 @@ def write_report(report_file):
         sys.exit(1)
 
 def log_login_attempts(report_file):
-    """Log root login attempts from /var/log/secure."""
+    """Log root login attempts from /var/log/wtmp."""
     try:
-        with open(LOG_FILE, "r") as file, open(report_file, "a") as f:
-            f.write("\nRoot Login Attempts:\n")
-            for line in file:
-                if "root" in line:
-                    f.write(line)
-    except IOError:
-        print("Error: Cannot read log file '{}'.".format(LOG_FILE))
+        process = subprocess.Popen(["last", "adminuser"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, error = process.communicate()
+
+        if process.returncode == 0:
+            with open(report_file, "a") as f:
+                f.write("\nRoot Login Attempts:\n")
+                f.write(output.decode())
+        else:
+            print("Error reading wtmp file:", error.decode())
     except Exception as e:
         print("Unexpected error:", e)
 

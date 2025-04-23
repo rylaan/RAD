@@ -1,9 +1,17 @@
 import os
 import pwd
 import datetime
+import sys
 
 # List of logins to exclude from deletion
 EXCLUDE_LOGINS = ['admin', 'special_user', 'dlash']
+
+def get_filenames():
+    """Get the report filename from command-line arguments."""
+    if len(sys.argv) < 2:
+        print("Usage: python script.py <report_file.txt>")
+        sys.exit(1)
+    return sys.argv[1]
 
 def get_old_logins():
     current_time = datetime.datetime.now()
@@ -15,7 +23,7 @@ def get_old_logins():
             if user.pw_name in EXCLUDE_LOGINS:
                 continue
             try:
-                last_login = datetime.datetime.fromtimestamp(os.path.getctime(user.pw_dir))
+                creation_date = datetime.datetime.fromtimestamp(os.path.getctime(user.pw_dir))
                 if last_login < threshold_date:
                     old_logins.append(user.pw_name)
             except Exception as e:
@@ -23,9 +31,8 @@ def get_old_logins():
 
     return old_logins
 
-def generate_report():
+def generate_report(report_file):
     old_logins = get_old_logins()
-    report_file = 'deletion_report.txt'
 
     with open(report_file, 'w') as f:
         f.write("Accounts Recommended for Deletion:\n")
@@ -36,4 +43,5 @@ def generate_report():
     print(f"Report written to {report_file}")
 
 if __name__ == "__main__":
-    generate_report()
+    report_file = get_filenames()
+    generate_report(report_file)
