@@ -50,7 +50,7 @@ def write_report(report_file):
             f.write("\nCPU Utilization: {}%\n".format(cpu_utilization))
             f.write("^average CPU usage percentage over a 15-second interval\n")
             try:
-                load_avg = psutil.getloadavg()[0]
+                load_avg = psutil.getloadavg()[1]
                 print("User Load Average: {}".format(load_avg))  # Debugging print statement
                 f.write("\nUser Load Average: {}\n".format(load_avg))
                 f.write("^average number of processes waiting to be executed over the last 5 minutes\n")
