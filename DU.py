@@ -24,25 +24,26 @@ def delete_old_logins():
     try:
         with open(report_file, 'r') as f:
             lines = f.readlines()
-        old_logins = [line.strip() for line in lines[2:]]  # Skip header lines
+        old_logins = [line.strip().split()[0] for line in lines[2:]]  # Skip header lines and extract usernames
         with open(deleted_users_report, 'w') as report:
             report.write("Deleted Users Report\n")
             report.write("====================\n")
             for username in old_logins:
                 try:
-                    # Get the modification age of the user's home directory
+                    # Get the modification date of the user's home directory
                     home_dir = f"/home/{username}"
                     if os.path.exists(home_dir):
                         modification_time = os.path.getmtime(home_dir)
                         modification_date = datetime.datetime.fromtimestamp(modification_time)
                         age = (datetime.datetime.now() - modification_date).days
                     else:
+                        modification_date = "Unknown"
                         age = "Unknown"
 
                     # Delete the Linux user and their home directory
                     subprocess.run(['userdel', '-r', username], check=True)
-                    print(f"Deleted user {username} (Account age: {age} days)")
-                    report.write(f"Deleted user: {username} (Account age: {age} days)\n")
+                    print(f"Deleted user {username} (Last modified: {modification_date}, Account age: {age} days)")
+                    report.write(f"Deleted user: {username} (Last modified: {modification_date}, Account age: {age} days)\n")
 
                     # Delete the user's MySQL database
                     delete_student_database(username)
