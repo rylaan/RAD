@@ -43,8 +43,10 @@ def create_or_update_user(username, default_password, log_file):
     timestamp = datetime.now().strftime("%m-%d-%y %I:%M%p").lower()
 
     def log(reason):
+        message = "Failed {} on {}: {}\n".format(username, timestamp, reason)
+        print(message.strip())  # <<< New: Print to terminal
         with open(log_file, "a") as logf:
-            logf.write("Failed {} on {}: {}\n".format(username, timestamp, reason))
+            logf.write(message)
 
     if user_exists(username):
         log("User already exists.")
@@ -67,11 +69,14 @@ def create_or_update_user(username, default_password, log_file):
         proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = proc.communicate()
         if proc.returncode != 0:
-            log("{}: {}".format(err_msg, err.decode().strip()))
+            full_error = "{}: {}".format(err_msg, err.decode().strip())
+            log(full_error)
             return
 
+    success_message = "Created {} on {} pass:{} user:{}\n".format(username, timestamp, default_password, username)
+    print(success_message.strip())  # <<< New: Print success to terminal
     with open(log_file, "a") as logf:
-        logf.write("Created {} on {} pass:{} user:{}\n".format(username, timestamp, default_password, username))
+        logf.write(success_message)
 
 def main():
     check_root()

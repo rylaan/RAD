@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f961987e-132c-4795-833e-bd339e75a2ca" name="Changes" comment="4/23">
-      <change afterPath="$PROJECT_DIR$/updated/AppManagement2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,6 +97,10 @@
       <workItem from="1745124242340" duration="801000" />
       <workItem from="1745431909340" duration="288000" />
       <workItem from="1745432200451" duration="89000" />
+      <workItem from="1745432332030" duration="31000" />
+      <workItem from="1745552551569" duration="1014000" />
+      <workItem from="1745593017493" duration="241000" />
+      <workItem from="1745725386459" duration="617000" />
     </task>
     <task id="LOCAL-00001" summary="Create logins and send email with credentials">
       <option name="closed" value="true" />
@@ -203,7 +206,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745432068418</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="4/23">
+      <option name="closed" value="true" />
+      <created>1745432343986</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1745432343986</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
