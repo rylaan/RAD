@@ -1,16 +1,11 @@
 import time
-import sys
 import psutil
 import subprocess
 from datetime import datetime
 import shlex
 
-
-def get_application_name():
-    if len(sys.argv) < 2:
-        print("Usage: python script.py <application_name>")
-        sys.exit(1)
-    return sys.argv[1]
+# Set your application name directly here
+APP_NAME = "your_application_name_here"  # Example: "sleep 9999"
 
 
 def get_log_filename(app_name):
@@ -45,7 +40,7 @@ def log_status(log_file, message):
 
 
 def main():
-    app_name = get_application_name()
+    app_name = APP_NAME
     log_file = get_log_filename(app_name)
 
     while True:
@@ -59,7 +54,7 @@ def main():
                 log_status(log_file, f"Failed to restart '{app_name}'.")
 
         print(f"Sleeping for 2 minutes...\n")
-        time.sleep(120)  # Wait for 2 minutes before checking again
+        time.sleep(120)
 
 
 if __name__ == "__main__":
