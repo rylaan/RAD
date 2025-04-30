@@ -6,7 +6,7 @@ import datetime
 # MySQL credentials for root/admin access
 DB_CONFIG = {
     'user': 'root',
-    'password': 'Password',  # Replace with actual MySQL root password
+    'password': 'Password',
     'host': 'localhost',
     'database': 'student_users',
     'unix_socket': '/opt/bitnami/mariadb/tmp/mysql.sock'
@@ -20,7 +20,7 @@ def create_old_user(username):
     creation_date = datetime.datetime.now() - datetime.timedelta(days=5*365)
     creation_timestamp = int(creation_date.timestamp())
     
-    # Update the home directory creation time
+    #Update the home directory modification time
     home_dir = f'/home/{username}'
     os.utime(home_dir, (creation_timestamp, creation_timestamp))
     print(f"User {username} created with home directory timestamp set to {creation_date}")
@@ -34,7 +34,7 @@ def create_old_user(username):
     # Create student's MySQL database
     create_student_database(username)
     
-    # Create student's MySQL user for remote access
+    # Create student's MySQL user
     create_student_mysql_user(username)
 
 def create_database(username):
@@ -55,7 +55,6 @@ def create_mysql_user(username):
     try:
         conn = mysql.connector.connect(**DB_CONFIG)
         cursor = conn.cursor()
-        # Create user for remote access
         cursor.execute(f"CREATE USER IF NOT EXISTS '{username}'@'%' IDENTIFIED BY 'password';")
         cursor.execute(f"GRANT ALL PRIVILEGES ON `{db_name}`.* TO '{username}'@'%';")
         cursor.execute("FLUSH PRIVILEGES;")
