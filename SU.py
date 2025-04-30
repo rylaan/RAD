@@ -37,7 +37,7 @@ def create_report(report_file):
             
             cpu_utilization = psutil.cpu_percent(interval=10)
             f.write("\nCPU Utilization: {}%\n".format(cpu_utilization))
-            f.write("^average CPU usage percentage over a 15-second interval\n")
+            f.write("^average CPU usage percentage over a 10-second interval\n")
             
             load_avg = psutil.getloadavg()[0]
             f.write("\nUser Load Average: {}\n".format(load_avg))
