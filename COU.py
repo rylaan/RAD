@@ -37,8 +37,8 @@ def create_old_user(username):
     # Create student's MySQL user for remote access
     create_student_mysql_user(username)
 
-def create_student_database(username):
-    db_name = f"student_{username}"
+def create_database(username):
+    db_name = f"{username}"
     try:
         conn = mysql.connector.connect(**DB_CONFIG)
         cursor = conn.cursor()
@@ -50,8 +50,8 @@ def create_student_database(username):
     except Exception as e:
         print(f"Error creating database for {username}: {e}")
 
-def create_student_mysql_user(username):
-    db_name = f"student_{username}"
+def create_mysql_user(username):
+    db_name = f"{username}"
     try:
         conn = mysql.connector.connect(**DB_CONFIG)
         cursor = conn.cursor()
