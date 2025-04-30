@@ -56,6 +56,8 @@ def get_cpu_utilization():
             if 'Cpu(s)' in line:
                 # Extract the CPU utilization percentage
                 cpu_utilization_parts = line.split()
+                print(cpu_utilization_parts[0])
+                print(cpu_utilization_parts[1])
                 for part in cpu_utilization_parts:
                     if 'us,' in part:
                         cpu_utilization = part.replace('us,', '')
