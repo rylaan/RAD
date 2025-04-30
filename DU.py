@@ -4,10 +4,10 @@ import mysql.connector
 import os
 import datetime
 
-# MySQL credentials for root/admin access
+#MySQL root/admin access
 DB_CONFIG = {
     'user': 'root',
-    'password': 'Password',  # Replace with actual MySQL root password
+    'password': 'Password',
     'host': 'localhost',
     'database': 'student_users',
     'unix_socket': '/opt/bitnami/mariadb/tmp/mysql.sock'
@@ -24,13 +24,13 @@ def delete_old_logins():
     try:
         with open(report_file, 'r') as f:
             lines = f.readlines()
-        old_logins = [line.strip().split()[0] for line in lines[2:]]  # Skip header lines and extract usernames
+        old_logins = [line.strip().split()[0] for line in lines[2:]]  #Skip header lines and extract usernames
         with open(deleted_users_report, 'w') as report:
             report.write("Deleted Users Report\n")
             report.write("====================\n")
             for username in old_logins:
                 try:
-                    # Get the modification date of the user's home directory
+                    #Retrieve user's home directory modification date
                     home_dir = f"/home/{username}"
                     if os.path.exists(home_dir):
                         modification_time = os.path.getmtime(home_dir)
@@ -40,12 +40,10 @@ def delete_old_logins():
                         modification_date = "Unknown"
                         age = "Unknown"
 
-                    # Delete the Linux user and their home directory
-                    subprocess.run(['userdel', '-r', username], check=True)
+                    subprocess.run(['userdel', '-r', username], check=True) #Delete Linux user and their home directory
                     print(f"Deleted user {username} (Last modified: {modification_date}, Account age: {age} days)")
                     report.write(f"Deleted user: {username} (Last modified: {modification_date}, Account age: {age} days)\n")
 
-                    # Delete the user's MySQL database
                     delete_student_database(username)
                 except subprocess.CalledProcessError as e:
                     print(f"Failed to delete user {username}: {e}")
