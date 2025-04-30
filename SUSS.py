@@ -35,7 +35,9 @@ def generate_cpu_load(duration=10):
     """Generate CPU load by performing intensive calculations."""
     end_time = time.time() + duration
     while time.time() < end_time:
-        [x**3 for x in range(100000)]
+        [x**2 for x in range(100000)]  # Increased range
+        for _ in range(100):  # Added nested loop
+            [x**3 for x in range(10000)] 
         print(psutil.cpu_percent(interval=1))
 
 def write_report(report_file):
