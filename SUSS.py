@@ -31,14 +31,12 @@ def test_response_time(server_ip):
         return None  # Server unreachable
 
 
-def generate_cpu_load(duration=60):
+def generate_cpu_load(duration=10):
     """Generate CPU load by performing intensive calculations."""
     end_time = time.time() + duration
     while time.time() < end_time:
+        [x**3 for x in range(100000)]
         print(psutil.cpu_percent(interval=1))
-        [x**2 for x in range(100000)]  # Increased range
-        for _ in range(100):  # Added nested loop
-            [x**3 for x in range(10000)]  # More complex calculations
 
 def write_report(report_file):
     """Write system report to the file."""
@@ -47,7 +45,7 @@ def write_report(report_file):
             f.write("System Report - {}\n".format(datetime.now()))
             
             # Generate CPU load for 60 seconds
-            generate_cpu_load(duration=60)
+            generate_cpu_load(duration=10)
             # Increase the interval to 15 seconds for CPU utilization measurement
             cpu_utilization = psutil.cpu_percent(interval=15)
             print("CPU Utilization: {}%".format(cpu_utilization))  # Debugging print statement
