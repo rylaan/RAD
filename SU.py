@@ -35,27 +35,19 @@ def create_report(report_file):
         with open(report_file, "w") as f:
             f.write("System Report - {}\n".format(datetime.now()))
             
-            # Increase the interval to 15 seconds for CPU utilization measurement
-            cpu_utilization = psutil.cpu_percent(interval=15)
-            print("CPU Utilization: {}%".format(cpu_utilization))  # Debugging print statement
+            cpu_utilization = psutil.cpu_percent(interval=10)
             f.write("\nCPU Utilization: {}%\n".format(cpu_utilization))
             f.write("^average CPU usage percentage over a 15-second interval\n")
             
-            try:
-                load_avg = psutil.getloadavg()[0]
-                print("User Load Average: {}".format(load_avg))  # Debugging print statement
-                f.write("\nUser Load Average: {}\n".format(load_avg))
-                f.write("^average number of processes waiting to be executed over the last 5 minutes\n")
-            except AttributeError:
-                print("Load average not supported on this system.")
-                f.write("User Load Average: Not supported\n")
+            load_avg = psutil.getloadavg()[0]
+            f.write("\nUser Load Average: {}\n".format(load_avg))
+            f.write("^average number of processes waiting for/using the CPU over the last minutes\n")
             
             disk_usage = psutil.disk_usage('/').percent
-            print("Disk Space Consumed: {}%".format(disk_usage))  # Debugging print statement
             f.write("\nDisk Space Consumed: {}%\n".format(disk_usage))
             f.write("^percentage of disk space currently in use\n")
             
-            # Test response time
+            #Tests response time
             server_ip = get_ip_address()
             average_time = test_response_time(server_ip)
             if average_time is not None:
@@ -71,7 +63,7 @@ def create_report(report_file):
         sys.exit(1)
 
 def log_login_attempts(report_file):
-    """Log root login attempts from /var/log/wtmp."""
+    #Logs root login attempts
     try:
         process = subprocess.Popen(["last", "adminuser", "-n", "5"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output, error = process.communicate()
