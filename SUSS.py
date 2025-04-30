@@ -56,7 +56,7 @@ def get_cpu_utilization():
             if 'Cpu(s)' in line:
                 # Extract the CPU utilization percentage
                 cpu_utilization = line.split()[1]
-                return float(cpu_utilization.replace(' us,', ''))
+                return float(cpu_utilization.replace('us,', ''))
 
         print("CPU utilization information not found.")
         return None
